@@ -1,17 +1,31 @@
 (function(){
 
+    // Sélection de l'élément principal de l'application
     const app = document.querySelector(".app");
+
+    // Initialisation de Socket.IO côté client
     const socket = io();
 
+    // Variable pour stocker le nom d'utilisateur
     let uname;
 
+    // Gestionnaire d'événements pour rejoindre le chat
     app.querySelector(".join-screen #join-user").addEventListener("click", function(){
+        // Récupérer le nom d'utilisateur entré
         let username = app.querySelector(".join-screen #username").value;
+
+        // Rien ne se passe si le champ est vide
         if(username.length == 0) {
             return;
         }
+
+        // Émettre l'événement 'newUser' avec le nom d'utilisateur au serveur
         socket.emit("newUser", username);
+
+        // Sauvegarder le nom d'utilisateur dans la variable locale
         uname = username;
+
+        // Masquer l'écran de connexion et afficher l'écran de chat et inversement
         //Sélection de l'élément et on enlève la classe
         app.querySelector(".join-screen").classList.remove("active");
         //ajout de la classe
