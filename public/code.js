@@ -10,7 +10,7 @@
         if(username.length == 0) {
             return;
         }
-        socket.emit("NouvelUtilisateur", username);
+        socket.emit("newUser", username);
         uname = username;
         //Sélection de l'élément et on enlève la classe
         app.querySelector(".join-screen").classList.remove("active");
@@ -32,6 +32,22 @@
             text:message
         });
         app.querySelector(".chat-screen #message-input").value = "";
+    });
+
+    //Fonctionnalité pour quitter le chat
+    //Sélection du bouton et event sur clique
+    app.querySelector(".chat-screen #exit-chat").addEventListener("click", function(){
+        socket.emit("exituser", uname);
+        //renvoi le user vers l'url de départ
+        window.location.href = window.location.href;
+    })
+
+    socket.on("update", function(update) {
+        renderMessage("update", update);
+    });
+
+    socket.on("chat", function(message) {
+        renderMessage("other", message);
     });
 
     function renderMessage(type,message){

@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname+"/public")));
 
 
 io.on("connection", function(socket) {
-    socket.on("nouvelUtilisateur", function(username){
+    socket.on("newUser", function(username){
         socket.broadcast.emit("update", username + " a rejoint la conversation");
     });
     socket.on("exituser", function(username){
