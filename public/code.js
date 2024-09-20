@@ -32,40 +32,57 @@
         app.querySelector(".chat-screen").classList.add("active");
     });
 
+    // Gestionnaire d'événements pour envoyer un message
     app.querySelector(".chat-screen #send-message").addEventListener("click", function(){
+        // Récupérer le message saisi par l'utilisateur
         let message = app.querySelector(".chat-screen #message-input").value;
+
         if(message.length == 0) {
             return;
         }
+
+        // Afficher le message sur l'interface comme étant envoyé par "moi"
         renderMessage("my", {
             username:uname,
             text:message
         });
+
+        // Émettre l'événement 'chat' avec le message au serveur
         socket.emit("chat", {
             username:uname,
             text:message
         });
+
+        // Vider le champ de saisie de message après envoi
         app.querySelector(".chat-screen #message-input").value = "";
     });
 
-    //Fonctionnalité pour quitter le chat
+    // Gestionnaires d'événements pour quitter le chat
     //Sélection du bouton et event sur clique
     app.querySelector(".chat-screen #exit-chat").addEventListener("click", function(){
+        // Informer le serveur que l'utilisateur quitte le chat (socket temps réel)
         socket.emit("exituser", uname);
+
         //renvoi le user vers l'url de départ
         window.location.href = window.location.href;
     })
 
+    // Écouter les événements de mise à jour (comme les connexions et déconnexions d'utilisateurs)
     socket.on("update", function(update) {
+        // Afficher la mise à jour sur l'interface
         renderMessage("update", update);
     });
 
+    // Écouter les messages des autres utilisateurs
     socket.on("chat", function(message) {
+        // Afficher les messages des autres utilisateurs
         renderMessage("other", message);
     });
-
+    // Fonction pour afficher les messages sur l'interface utilisateur
     function renderMessage(type,message){
         let messageContainer = app.querySelector(".chat-screen .messages");
+
+        // Si c'est mon message
         if(type == "my"){
             let el = document.createElement("div");
             el.setAttribute("class","message my-message");
@@ -76,7 +93,9 @@
             </div>
             `;
             messageContainer.appendChild(el);
-        } else if(type == "other"){
+        } 
+        // S'il vient d'un autre user
+        else if(type == "other"){
             let el = document.createElement("div");
             el.setAttribute("class","message other-message");
             el.innerHTML = `
@@ -86,13 +105,17 @@
             </div>
             `;
             messageContainer.appendChild(el);
-        } else if(type == "update"){
+        } 
+        
+        // Si c'est un update ; connexion/déconnexion
+        else if(type == "update"){
             let el = document.createElement("div");
             el.setAttribute("class","update");
             el.innerText = message;
             messageContainer.appendChild(el);
         }
-        // scroll chat to end
+        
+        // Faire défiler automatiquement le chat vers le bas
         messageContainer.scorllTop = messageContainer.scrollHeight - messageContainer.clientHeight;
 
     }
