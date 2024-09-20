@@ -1,0 +1,8 @@
+Présentation du projet de l'application de chat avec HTML/CSS JavaScript NodeJS et Socket.io
+
+Initialisation du projet avec : npm install -y
+
+npm install express socket.io --save
+
+Création du dossier public et du fichier server.js
+Configuration du serveur Express
