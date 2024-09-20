@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="app">
-        <!-- Fonctionnalité de connexion -->
+        <!-- Ecran de connexion utilisateur -->
         <div class="screen join-screen active">
             <div class="form">
                 <h2>Rejoindre la discussion</h2>
@@ -21,12 +21,13 @@
                 </div>
             </div>
         </div>
-        <!-- Fonctionnalité de chat -->
+        <!-- Ecran de chat -->
         <div class="screen chat-screen"> 
             <div class="header">
                 <div class="logo">Salle de chat</div>
                 <button id="exit-chat">Quitter</button>
             </div>
+            <!-- Section pour afficher les messages -->
             <div class="messages">            
             </div>
             <div class="typebox">
@@ -35,6 +36,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Inclusion de Socket.IO pour la communication en temps réel -->
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
     <script type="text/javascript" src="code.js"></script>
 </body>
