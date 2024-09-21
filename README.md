@@ -1,4 +1,4 @@
-Présentation du projet de l'application de chat avec HTML/CSS JavaScript NodeJS et Socket.io
+Présentation du projet de l'application de chat avec HTML/CSS JavaScript NodeJS et Socket.io.
 
 # Application de chat
 
